@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <body>
+    <form method="POST">
+        <label for="message" class="titles">Edit your answer: </label><br>
+        <br>
+        <textarea rows="4" cols="50" required id="message" name="message">{{ answer_content }}</textarea><br>
+        <br>
+        <input type="submit" value="Update_answer" class="myButton">
+    </form>
+    </body>
+{% endblock %}

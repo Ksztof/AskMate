@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    {% if not session.user_email %}
+        <h1>LOG IN</h1>
+        <form name="login" aciton="{{ url_for('login') }}" method="post">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="submit" value="LOG IN">
+        </form>
+    {% else %}
+        You're logged in as {{ session.user_email }}!
+    {% endif %}
+{% endblock %}

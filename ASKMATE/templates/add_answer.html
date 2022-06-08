@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form action="{{ url_for('add_new_answer', question_id=question_id) }}" method="post">
+        <label for="message" class="titles">Your Answer:</label>
+        <br>
+        <br>
+        <textarea name="message" rows="4" cols="50"></textarea>
+        <br>
+        <br>
+        {#    <br>#}
+        {#  <label for="img">Select image: </label><br>#}
+        {#  <input type="file" id="img" name="img" accept="image/*"><br>#}
+        {#    <input type="submit">#}
+        <input type="submit" value="Add" class="myButton">
+    </form>
+    <br>
+    <p><a href="/" style="color: black">GO BACK TO MAIN PAGE</a></p>
+{% endblock %}

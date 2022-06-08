@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <body>
+    <br>
+    <form method="POST">
+        <label for="message" class="titles">Edit comment:</label>
+        <br>
+        <br>
+        <textarea rows="4" cols="50" required id="message" name="message">{{ comment_content }}</textarea><br>
+        <br>
+        <input type="submit" value="Update" class="myButton">
+    </form>
+    </body>
+{% endblock %}

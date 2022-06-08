@@ -1,0 +1,10 @@
+Flask~=1.1.2
+Jinja2	
+MarkupSafe	
+Werkzeug	
+click	
+itsdangerous	
+pip	
+psycopg2~=2.8.6
+setuptools	
+bcrypt~=3.2.0

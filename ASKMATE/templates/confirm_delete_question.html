@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <h2>ARE YOU SURE YOU WANT TO DELETE THIS QUESTION?</h2>
+    <br>
+    <form action="{{ url_for("delete_question", question_id=question_id) }}" method="POST">
+        <button type="submit" class="myButton">YES!</button>
+    </form>
+    <br>
+    <br>
+    <p><a href="/" style="color: black">NO! <br> (back to MainPage)</a></p>
+{% endblock %}

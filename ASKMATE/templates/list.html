@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1 class="main-title">Don't even ask, mate!</h1>
+    <a href="{{ url_for('add_new_question') }}"><h2>Ask a new question</h2></a>
+    <br>
+    <h1>Search by phrase</h1>
+    <form action="/search">
+        <label for="phrase">Title or message: </label>
+        <input name="phrase" type="text" id="phrase">
+        <button type="submit" class="smallButton">Search</button>
+    </form>
+    <br>
+    {% if title == "List questions" %}
+        <form action="{{ url_for('display_questions_list', order_by=order_by, order=order) }}" method="GET">
+            <label for="order_by">Sort questions by: </label>
+            <select name="order_by" id="order_by">
+                {% for key, option in select_options.items() %}
+                    <option {% if key == order_by %}selected{% endif %}
+                            value="{{ key }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <label for="order">Order: </label>
+            <select name="order" id="order">
+                {% for option in order_options %}
+                    <option {% if option == order %} selected {% endif %}
+                                                     value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <p>
+                <button type="submit" class="myButton">Sort</button>
+            </p>
+        </form>
+    {% endif %}
+    <br>
+    <table class="darkTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Submission<br>time</th>
+            <th>View<br>number</th>
+            <th>Vote<br>number</th>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Image</th>
+            <th>More</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                {% for key in question.keys() %}
+                    <td>{{ question[key] }}</td>
+                {% endfor %}
+                <td><a href="{{ url_for('display_single_question',question_id=question['id']) }}">See more</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    {% if title == "Main page" %}
+        <p><a href="{{ url_for('display_questions_list', order_by = 'submission_time', order = 'DESC') }}"
+              style="color: black">List all questions</a></p>
+    {% else %}
+        <br>
+        <p><a href="{{ url_for('get_5_latest_questions') }}" style="color: black">Go to the main page!</a></p>
+    {% endif %}
+{% endblock %}

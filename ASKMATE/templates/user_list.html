@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            {% for header in headers %}
+               <th scope="col">&nbsp;{{ header }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users_data %}
+            <tr>
+                <td>{{ user['id'] }}</td>
+                <td>{{ user['user_name'] }}</td>
+                <td>
+                    <a href="">user details</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
+
+{#<td>#}
+{#    <a href="{{ url_for("add_comment_to_answer", answer_id=answer["id"], question_id=answer["question_id"]) }}">COMMENT ANSWER</a>#}
+{#</td>#}
+
+{#<table>#}
+{#        <thead>#}
+{#        <tr>#}
+{#            {% for header in answer_headers %}#}
+{#                <th scope="col">{{ header }}</th>#}
+{#            {% endfor %}#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for answer in answers_to_single_question %}#}
+{#            <tr>#}
+{#                <td> {{ answer["id"] }}</td>#}
+{#                <td> {{ answer["submission_time"] }}</td>#}
+{#                <td> {{ answer["vote_number"] }}</td>#}
+{#                <td> {{ answer["question_id"] }}</td>#}
+{#                <td> {{ answer["message"] }}</td>#}
+{#                <td> {{ answer["image"] }}</td>#}
+{#                <td>#}
+{#                      <a href="{{ url_for("add_comment_to_answer", answer_id=answer["id"], question_id=answer["question_id"]) }}">COMMENT ANSWER</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1> Don't even ask, mate! - ADD NEW QUESTION</h1>
+    <form action="{{ url_for('add_new_question') }}" method="post">
+        <label for="title" class="titles">Title: </label><br>
+        <input type="text" name="title" id="title" style="height: 50px; width: 350px"><br>
+        <br>
+        <br>
+        <label for="message" class="titles">Message: </label><br>
+        <textarea name="message" id="message" style="height: 100px; width: 350px"></textarea><br>
+        <br>
+        <input type="submit" value="ADD" class="myButton">
+    </form>
+    <br>
+{% endblock %}

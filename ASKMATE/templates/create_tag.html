@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>ADD NEW TAG</h1>
+    <form action="{{ url_for('add_tag', question_id=question_id) }}" method="post">
+        <br>
+        <br>
+        <input type="text" name="tag" id="tag">
+        <br>
+        <br>
+        <input type="submit" value="ADD TAG" class="myButton">
+    </form>
+    <br>
+    <p><a href="{{ url_for("display_single_question", question_id=question_id) }}" style="color: black">GO BACK TO
+        QUESTION PAGE</a></p>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <p><a href="/" style="color: black">GO BACK TO MAIN PAGE</a></p>
+    <h1>YOU ARE REVIEWING THE QUESTION:<br> {{ single_question["title"] }}</h1>
+    <table class="darkTable">
+        <thead>
+        <tr>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for data in single_question %}
+                <td>{{ single_question[data] }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <p><a href="{{ url_for("delete_question", question_id=question_id) }}" class="myButton">DELETE</a></p>
+    <p><a href="{{ url_for("update_question", question_id=question_id) }}" class="myButton">EDIT</a></p>
+    <a href="{{ url_for("vote_for_question", question_id=question_id, vote_type='up') }}" class="myButton">VOTE UP</a>
+    <a href="{{ url_for("vote_for_question", question_id=question_id, vote_type='down') }}" class="myButton">VOTE
+        DOWN</a>
+    <br>
+    <br>
+    <br>
+    <form action="{{ url_for('add_connection', question_id=question_id, tag_id=tag_id) }}" method="POST">
+        <label>Select tag from existings: </label>
+        <select name="tag-id">
+            {% for tag in all_tags %}
+                <option value="{{ tag['id'] }}">{{ tag['name'] }}</option>
+            {% endfor %}
+        </select>
+        <button type="Submit" class="smallButton">ADD TAG</button>
+        <p>or</p>
+        <p><a href="{{ url_for("add_tag", question_id=question_id) }}" class="myButton">ADD NEW TAG</a></p>
+    </form>
+    <br>
+    <h2>TAGS FOR QUESTION:</h2>
+    <h4>{% for tag in tags_assigned_to_question %}
+        {{ tag['name'] }}<br>
+    {% endfor %}</h4>
+    <br>
+    <form action="{{ url_for('delete_tag', question_id=question_id, tag_id=tag_id) }}" method="POST">
+        <label>Select tag for delete:</label>
+        <select name="tag-id">
+            {% for tag in tags_assigned_to_question %}
+                <option value="{{ tag['id'] }}">{{ tag['name'] }}</option>
+            {% endfor %}
+        </select>
+        <button type="Submit" class="smallButton">DELETE TAG</button>
+    </form>
+    <br>
+    <h2>COMMENTS TO QUESTION:</h2>
+    <table class="darkTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>MESSAGE</th>
+            <th>SUBMISSION TIME</th>
+            <th>EDITED COUNT</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comment_to_question %}
+            <tr>
+                <td>{{ comment["id"] }}</td>
+                <td>{{ comment["message"] }}</td>
+                <td>{{ comment["submission_time"] }}</td>
+                <td>{{ comment["edited_count"] }}</td>
+                <td>
+                    <a href="{{ url_for("update_comment", comment_id=comment["id"], question_id=question_id) }}">EDIT</a>
+                </td>
+                <td>
+                    <a href="{{ url_for("delete_comment", comment_id=comment["id"], question_id=question_id) }}">DELETE</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p><a href="{{ url_for('add_comment_to_question', question_id=question_id) }}" class="myButton">ADD NEW COMMENT</a>
+    </p>
+    <br>
+    <br>
+    <br>
+    <h1>ANSWERS:</h1>
+    <table class="darkTable">
+        <thead>
+        <tr>
+            {% for header in answer_headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for answer in answers_to_single_question %}
+            <tr>
+                <td> {{ answer["id"] }}</td>
+                <td> {{ answer["submission_time"] }}</td>
+                <td> {{ answer["vote_number"] }}</td>
+                <td> {{ answer["question_id"] }}</td>
+                <td> {{ answer["message"] }}</td>
+                <td> {{ answer["image"] }}</td>
+                <td>
+                    <a href="{{ url_for("add_comment_to_answer", answer_id=answer["id"], question_id=answer["question_id"]) }}">COMMENT
+                        ANSWER</a></td>
+                <td>
+                    <a href="{{ url_for("update_answer", answer_id=answer["id"], question_id=answer["question_id"]) }}">EDIT
+                        ANSWER</a></td>
+                <td>
+                    <a href="{{ url_for("delete_answer", answer_id=answer["id"], question_id=answer["question_id"]) }}">DELETE
+                        ANSWER</a></td>
+                <td>
+                    <a href="{{ url_for("vote_for_answer", answer_id=answer["id"], question_id=answer["question_id"], vote_type='up') }}">VOTE
+                        UP</a></td>
+                <td>
+                    <a href="{{ url_for('vote_for_answer', answer_id=answer["id"], question_id=answer["question_id"], vote_type='down') }}">VOTE
+                        DOWN</a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ url_for('add_new_answer',question_id=question_id) }}" class="myButton">ADD NEW ANSWER</a>
+    <br>
+    <br>
+    <h2>COMMENTS TO ANSWERS:</h2>
+    <table class="darkTable">
+        <thead>
+        <tr>
+            <th>COMMENT<br>ID</th>
+            <th>QUESTION<br>ID</th>
+            <th>ANSWER<br>ID</th>
+            <th>MESSAGE</th>
+            <th>SUBMISSION<br>TIME</th>
+            <th>EDITED<br>COUNT</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comment_to_answer %}
+            <tr>
+                <td>{{ comment["id"] }}</td>
+                <td>{{ comment["question_id"] }}</td>
+                <td>{{ comment["answer_id"] }}</td>
+                <td>{{ comment["message"] }}</td>
+                <td>{{ comment["submission_time"] }}</td>
+                <td>{{ comment["edited_count"] }}</td>
+                <td>
+                    <a href="{{ url_for("update_comment", comment_id=comment["id"], question_id=comment["question_id"]) }}">EDIT</a>
+                </td>
+                <td>
+                    <a href="{{ url_for("delete_comment", comment_id=comment["id"], question_id=question_id) }}">DELETE</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+<br>
+<br>
